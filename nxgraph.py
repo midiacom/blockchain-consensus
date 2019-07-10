@@ -43,27 +43,31 @@ class Graph(nx.Graph):
 
         timestamp = df["1289241911.72836"]
 
-        #self.set_dict_nodes()
-        #print(list(self.nodes))
-        self.set_edges(source, target)
+        """
+        self.set_dict_nodes()
+        print(list(self.nodes))
+        print(self.adj.items())
+        sys.exit()
+        largest_cc = max(nx.connected_components(self), key=len)
+        """
 
-        #print(self.adj.items())
-        #sys.exit()
+        self.set_edges(source, target)
         self.set_neighbors()
-        #largest_cc = max(nx.connected_components(self), key=len)
         largest_cc = nx.node_connected_component(self,8)
         for node in list(self.nodes):
             if node not in largest_cc:
                 self.remove_node(node)
 
 
+        """
         #print(nx.number_connected_components(self))
-        for c in nx.connected_components(self):
-            print(c)
+        #for c in nx.connected_components(self):
+        #    print(c)
         #for c in nx.connected_components(self):
         #    print(self.subgraph(c))
         #print(largest_cc)
-        nx.write_gml(self, "bitcoinotc.gml")
+        #nx.write_gml(self, "bitcoinotc.gml")
+        """
 
     def set_dict_nodes(self):
         for node in list(self.nodes):
@@ -71,19 +75,25 @@ class Graph(nx.Graph):
         return
 
     def set_edges(self, source, target):
-        #for i in range(len(source)):
-            #self.add_edge((source[i],self.dict_nodes[source[i]]), (target[i],self.dict_nodes[target[i]]))
+        """
+        for i in range(len(source)):
+            self.add_edge((source[i],self.dict_nodes[source[i]]), (target[i],self.dict_nodes[target[i]]))
+        """
+
         for i in range(len(source)):
             self.add_edge(source[i], target[i])
 
     def set_neighbors(self):
         print("\nSetting Initial Neighbors")
         for node in list(self.nodes):
-            #node[1].neighbors = self[(node[0], node[1])]
-            #print("Neighbors for Node {} = {}".format(node[0], node[1].neighbors))
-            #print("node = ",self[node], end="\n\n")
-            #if(node == 7):
-            #    sys.exit()
+
+            """
+            node[1].neighbors = self[(node[0], node[1])]
+            print("Neighbors for Node {} = {}".format(node[0], node[1].neighbors))
+            print("node = ",self[node], end="\n\n")
+            if(node == 7):
+                sys.exit()
+            """
             self.nodes_object[node].neighbours = self[node]
             pass
         return

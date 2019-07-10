@@ -21,7 +21,7 @@ class EventBlockGenerated(Event):
 
     def event_handler(self):
         pass
-    
+
 class EventoPrintNeighbors (Event):
     name = "eventShowNeighbors"
 
