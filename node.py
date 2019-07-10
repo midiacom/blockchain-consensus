@@ -27,19 +27,19 @@ class Node():
                           "eventChangeArrived": self.eventChangeArrived}
         return
 
-    def eventPrintNeighbors(self, event):
+    def event_Print_Neighbors(self, event):
         event.returned = True
         print("Node ID {}, neighbors = {}".format(self.ID, self.neighbors))
 
-    def eventGenerateBlock(self, event):
+    def event_Generate_Block(self, event):
         event.returned = True
         self.generateBlock(event.params)
 
-    def eventChangeArrived(self, event):
+    def event_Change_Arrived(self, event):
         pass
 
 
-    def generateBlock(self, params):
+    def generate_Block(self, params):
         print("Block Generated on NODE ID = ", self.ID)
         self.blockchain.generate_and_update(self.topology.nodes, self)
 
@@ -55,9 +55,9 @@ class Node():
         return data
 
 
-class NewNode (Node):
+class New_Node (Node):
 
     def __init__(self):
         Node.callbacks["newEvent"] = self.newEvent
-    def newEvent(self, params):
+    def new_Event(self, params):
         print("This is a new Event from NewNode")
