@@ -16,19 +16,19 @@ class Event:
     def event_handler(self):
         pass
 
-class EventBlockGenerated(Event):
+class Event_Block_Generated(Event):
     name = "eventChangeArrived"
 
     def event_handler(self):
         pass
     
-class EventoPrintNeighbors (Event):
+class Event_Print_Neighbors (Event):
     name = "eventShowNeighbors"
 
     def event_handler(self):
         pass
 
-class GenerateBlockEvent(Event):
+class Event_Generate_Block(Event):
     name = "eventGenerateBlock"
 
     def event_handler(self):
