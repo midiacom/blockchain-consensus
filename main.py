@@ -28,14 +28,14 @@ def generate_events(list):
 		events.append(new_event)
 	return
 
-def node_do_event(event, id, topology):
+def node_do_event(event, id, topology, step):
 	"""
 	for nodes in topology.nodes:
 		if(nodes[1].ID == id):
 			print("Node {} has to do event\n".format(nodes[1].ID))
 			nodes[1].handle_event(event)
 	"""
-	topology.nodes_object[id].handle_event(event)
+	topology.nodes_object[id].handle_event(event, step)
 	return
 
 def sort_events(list):
@@ -48,13 +48,18 @@ if __name__ == "__main__":
 
 	#topo.make_block_flow(simulation_steps)
 	#generate_events(block_generated_flow)
-	generate_events(block_generated_event_flow)
+
+	"""generate_events(block_generated_event_flow)"""
 
 	#print("Events created = ", events)
 
+	event_msg = Event_Send_Msg([5000, 5494])
+	events.append(event_msg)
+
 	for step in range(simulation_steps):
-		if(events[0].timestamp == step):
-			tmp_event = events[0]
-			events.remove(tmp_event)
-			print("\nStep for Event = ", step)
-			node_do_event(tmp_event, tmp_event.node_ID, topo)
+		if(len(events) != 0):
+			if(events[0].timestamp == step):
+				tmp_event = events[0]
+				events.remove(tmp_event)
+				print("\nStep for Event = ", step)
+				node_do_event(tmp_event, tmp_event.node_ID, topo, step)

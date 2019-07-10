@@ -34,3 +34,9 @@ class Event_Generate_Block(Event):
 
     def event_handler(self):
         pass
+
+class Event_Send_Msg(Event):
+    name = "eventSendMsg"
+
+    def event_handler(self):
+        pass
