@@ -18,15 +18,31 @@ class Node():
 
     neighbors = None
 
-    def __init__(self, topology=None, blockchain=None):
+    def __init__(self, topology=None, blockchain=None,ID=None):
+        self.ID = ID
         self.topology = topology
         self.blockchain = blockchain
-        self.callbacks = {"eventShowNeighbors": self.eventPrintNeighbors}
+        self.callbacks = {"eventShowNeighbors": self.eventPrintNeighbors,
+                          "eventGenerateBlock": self.eventGenerateBlock,
+                          "eventChangeArrived": self.eventChangeArrived}
         return
 
     def eventPrintNeighbors(self, event):
         event.returned = True
         print("Node ID {}, neighbors = {}".format(self.ID, self.neighbors))
+
+    def eventGenerateBlock(self, event):
+        event.returned = True
+        self.generateBlock(event.params)
+
+    def eventChangeArrived(self, event):
+        pass
+
+
+    def generateBlock(self, params):
+        print("Block Generated on NODE ID = ", self.ID)
+        self.blockchain.generate_and_update(self.topology.nodes, self)
+
 
     def handle_event(self, event):
         try:
