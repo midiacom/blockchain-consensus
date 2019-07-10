@@ -22,9 +22,9 @@ class Node():
         self.ID = ID
         self.topology = topology
         self.blockchain = blockchain
-        self.callbacks = {"eventShowNeighbors": self.eventPrintNeighbors,
-                          "eventGenerateBlock": self.eventGenerateBlock,
-                          "eventChangeArrived": self.eventChangeArrived}
+        self.callbacks = {"eventShowNeighbors": self.event_Print_Neighbors,
+                          "eventGenerateBlock": self.event_Generate_Block,
+                          "eventChangeArrived": self.event_Change_Arrived}
         return
 
     def event_Print_Neighbors(self, event):
@@ -33,7 +33,7 @@ class Node():
 
     def event_Generate_Block(self, event):
         event.returned = True
-        self.generateBlock(event.params)
+        self.generate_Block(event.params)
 
     def event_Change_Arrived(self, event):
         pass

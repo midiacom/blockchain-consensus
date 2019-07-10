@@ -24,7 +24,7 @@ def generate_events(list):
 	sys.exit()"""
 
 	for item in list:
-		new_event = GenerateBlockEvent([item[0], item[1]])
+		new_event = Event_Generate_Block([item[0], item[1]])
 		events.append(new_event)
 	return
 
@@ -49,7 +49,7 @@ if __name__ == "__main__":
 	#topo.make_block_flow(simulation_steps)
 	#generate_events(block_generated_flow)
 	generate_events(block_generated_event_flow)
-	
+
 	#print("Events created = ", events)
 
 	for step in range(simulation_steps):
