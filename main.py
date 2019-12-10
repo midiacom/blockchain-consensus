@@ -56,6 +56,7 @@ if __name__ == "__main__":
 	event_msg = Event_Send_Msg([5000, 5494])
 	events.append(event_msg)
 
+
 	for step in range(simulation_steps):
 		if(len(events) != 0):
 			if(events[0].timestamp == step):

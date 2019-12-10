@@ -23,7 +23,7 @@ class Event_Block_Generated(Event):
         pass
 
 
-class Event_Print_Neighbors (Event):
+class Event_Print_Neighbors(Event):
     name = "eventShowNeighbors"
 
     def event_handler(self):

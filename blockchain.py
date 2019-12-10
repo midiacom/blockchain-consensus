@@ -2,41 +2,46 @@ import sys
 from events import *
 import random
 
-class Blockchain:
 
-    blockchain_hash = None
-    blockchain_old_hash = None
-    level = 0
+class Block:
+
+    def __init__(self, last_block, proposer_id: int, timestamp):
+        self.hash = hash((last_block.hash, random.randint(0, 100000)))
+        self.last_block = last_block
+        self.proposer = proposer_id
+        self.timestamp = timestamp
+        self.is_correct = True
+
+class GenesisBlock:
 
     def __init__(self):
-        pass
+        self.hash = 0
+        self.last_block = None
+        self.proposer = None
+        self.timestamp = 0
+        self.is_correct = True
 
-    def generate_and_update(self, nodes, main):
-        print("Block Generated and Blockchain Updated")
-        self.blockchain_old_hash = self.blockchain_hash
-        self.blockchain_hash = self.generate_new_hash()
+class Blockchain:
+
+    def __init__(self):
+        self.last_block = None
+        self.level = 0
+        self. is_correct = True
+
+    def genesis(self):
+        self.last_block = GenesisBlock()
+        self.level = 1
+
+    def generate_block(self, proposer_id: int):
+        return Block(self.last_block, proposer_id)
+
+    def add_block(self, block: Block):
+        if block.last_block != self.last_block:
+            return
+        self.last_block = block
         self.level += 1
 
-        #self.send_updates(nodes)
-        #self.create_events_for_nodes(nodes)
-        return
-
-    def generate_new_hash(self):
-        return
 
 
-    def create_events_for_nodes(self, nodes):
-        events = []
 
-        for i in range(len(nodes)):
-            tmp_time = random.randint(1,100)
-            tmp_event = EventChangeArrived((tmp_time, i))
-            events.append(tmp_event)
-            print("Event {} added to the queue ".format(tmp_event.name))
-            sys.exit()
 
-    def send_updates(self, nodes):
-        for node in nodes:
-            #do something
-            pass
-        return

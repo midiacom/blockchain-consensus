@@ -1,7 +1,6 @@
 # imports
 from node import *
 from constants import *
-#from threading import Thread
 from nxgraph import Graph
 from scipy.stats import dgamma
 import os

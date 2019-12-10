@@ -1,12 +1,14 @@
 import logging
+from raft_events import *
 
-class Logger_Aux:
-    def __init__(self):
+class LoggerAux:
+
+    def __init__(self, file_name):
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
 
         # create a file handler
-        handler = logging.FileHandler('logguizinho.log')
+        handler = logging.FileHandler(file_name)
         handler.setLevel(logging.INFO)
 
         # create a logging format
@@ -17,7 +19,6 @@ class Logger_Aux:
         self.logger.addHandler(handler)
 
 
-    def create_log(self, event):
-        self.logger.info("ID: {} - Timestamp: {} - Event: {}".format(event.node_ID, event.timestamp, type(event).__name__))
+    def create_log(self, event: Event):
+        self.logger.info("Timestamp: {} - Event: {} - Node: {} ".format(event.timestamp, event.name, event.node.id))
 
-Logger = Logger_Aux()
