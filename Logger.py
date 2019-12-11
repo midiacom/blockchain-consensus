@@ -18,7 +18,7 @@ class LoggerAux:
         # add the handlers to the logger
         self.logger.addHandler(handler)
 
-
-    def create_log(self, event: Event):
-        self.logger.info("Timestamp: {} - Event: {} - Node: {} ".format(event.timestamp, event.name, event.node.id))
+    def create_log(self, msg: str):
+        self.logger.info(msg)
+        #self.logger.info("Timestamp: {} - Event: {} - Node: {} ".format(event.timestamp, event.name, event.node.id))
 

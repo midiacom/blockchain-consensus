@@ -10,7 +10,7 @@ if __name__ == "__main__":
     logger = LoggerAux("Raft_Log.txt")
 
     for node in range(10):
-        nodes.append(RaftNode(node, []))
+        nodes.append(RaftNode(node, [], logger))
 
     for node in nodes:
         node.neighbors = [x for x in nodes if x != node]
@@ -18,13 +18,12 @@ if __name__ == "__main__":
         if node.id == 1:
             node.is_leader = True
             event_flow[150] = []
-            event_flow[150].append(EventRaftProposeBlock([150, node]))
+            event_flow[150].append(EventRaftProposeBlock([150, node], logger))
 
     simulation_steps = 1000
     for step in range(simulation_steps):
         if step in event_flow.keys():
             for event in event_flow[step]:
-                logger.create_log(event)
                 returned_events = event.event_handler()
                 if returned_events:
                     for e in returned_events:
@@ -34,6 +33,11 @@ if __name__ == "__main__":
                         event_flow[e.timestamp].append(e)
 
             event_flow.pop(step)
+
+    for node in nodes:
+        print(node.blockchain.last_block.hash)
+
+    print(nodes[1].blockchain)
 
 
 

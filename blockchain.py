@@ -3,6 +3,7 @@ from events import *
 import random
 
 
+
 class Block:
 
     def __init__(self, last_block, proposer_id: int, timestamp):
@@ -41,7 +42,17 @@ class Blockchain:
         self.last_block = block
         self.level += 1
 
+    def __str__(self):
+        resp = "Level: {}\n".format(self.level)
+        blocks = []
+        block_aux = self.last_block
+        while block_aux.last_block:
+            blocks.append(block_aux.hash)
+            block_aux = block_aux.last_block
+        blocks.append(block_aux.hash)
 
+        resp += str(blocks)
+        return resp
 
 
 
