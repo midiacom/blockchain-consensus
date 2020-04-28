@@ -13,13 +13,18 @@ class Event:
         params[1] --> target node
         params[2:] --> event parameters
         """
-
         self.params = params
         self.timestamp = params[0]
         self.node = params[1]
 
+    def __lt__(self, other):
+        return 1
+
     def event_handler(self):
         pass
+
+
+
 
 
 class EventRaftProposeBlock(Event):

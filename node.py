@@ -118,6 +118,7 @@ class RaftNode:
 
         self.logger.create_log(
             "{} - Node {} received response from node {}".format(params[0], self.id, params[2].id))
+
         if params[4].hash == self.current_proposal.hash:
             self.votes.append(params[1])
             if self.voting_timeout <= params[0]:
@@ -141,6 +142,9 @@ class RaftNode:
                 params[1] --> target node
                 params[2] --> block
         '''
+        if params[2].hash == self.blockchain.last_block.hash:
+            return
+
         new_block = Block(self.blockchain.last_block, params[2].proposer, params[2].timestamp)
         new_block.hash = params[2].hash
         self.blockchain.add_block(new_block)

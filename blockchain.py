@@ -7,11 +7,12 @@ import random
 class Block:
 
     def __init__(self, last_block, proposer_id: int, timestamp):
-        self.hash = hash((last_block.hash, random.randint(0, 100000)))
         self.last_block = last_block
         self.proposer = proposer_id
         self.timestamp = timestamp
         self.is_correct = True
+
+        self.hash = hash((self.last_block.hash, random.randint(0, 1000)))
 
 class GenesisBlock:
 
