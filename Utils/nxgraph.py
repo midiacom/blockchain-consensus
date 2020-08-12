@@ -1,9 +1,8 @@
 import networkx as nx
-from node import *
-import time
-import blockchain as bc
+from Nodes.node import *
+from Blockchain import blockchain as bc
 import pandas as pd
-import sys
+
 
 # Class Graph with methods to generate Miners and Nodes
 
@@ -33,7 +32,7 @@ class Graph(nx.Graph):
         print("Number of nodes = ", self.number_of_nodes())
         #print("Nodes are = ", list(self.nodes))
 
-        df = pd.read_csv("Graph Generate/soc-sign-bitcoinotc.csv")
+        df = pd.read_csv("../Graph Generate/soc-sign-bitcoinotc.csv")
 
         source = df["6"]
 

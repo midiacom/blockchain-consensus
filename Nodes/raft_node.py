@@ -1,67 +1,20 @@
 import random
-from enum import Enum
-from blockchain import Blockchain, Block
+from Blockchain.blockchain import Block
 from typing import List
-from raft_events import *
-from Logger import LoggerAux
+from Events.raft_events import *
+from Utils.logger import LoggerAux
+from Nodes import Node
 
 
-# Nodes for the topology
-class State(Enum):
-    idle = 1
-    busy = 2
-    proposing = 3
-    waiting = 4
-
-
-class Node:
-
-    def __init__(self, neighbors: List[object], topology=None, id=None):
-        self.id = id
-        self.topology = topology
-        self.blockchain = Blockchain()
-        self.blockchain.genesis()
-        self.neighbors = neighbors
-        self.candidates = []
-        self.state = State.idle
-        self.callbacks = {"eventShowNeighbors": self.event_print_neighbors,
-                          "eventGenerateBlock": self.event_propose_block}
-
-    def complete_neighborhood(self):
-        for neighbor in self.neighbors:
-            for candidate in neighbor.neighbors:
-                if candidate != self and candidate not in self.neighbors and candidate not in self.candidates:
-                    self.candidates.append(candidate)
-
-    def event_print_neighbors(self):
-        print("Node ID {}, neighbors = {}".format(self.ID, self.neighbors))
-
-    def event_propose_block(self):
-        pass
-
-    def get_dict(self):
-        data = self.__dict__
-        return data
-
-    def __str__(self):
-        return "Node: {}\nNeighbors: {}\nCandidates: {}".format(self.id, [n.id for n in self.neighbors],
-                                                                [c.id for c in self.candidates])
-
-
-class RaftNode:
+class RaftNode(Node):
     votes = []
     current_proposal = None
     voting_timeout = -1
 
     def __init__(self, node_id: int, is_faulty: bool, neighbors: List[object], logger: LoggerAux):
-        self.id = node_id
-        self.neighbors = neighbors
-        self.logger = logger
-        self.blockchain = Blockchain()
-        self.blockchain.genesis()
+
+        super().__init__(node_id, is_faulty, neighbors, logger)
         self.is_leader = False
-        self.state = State.idle
-        self.is_faulty = is_faulty
         self.callbacks = {"propose_block": self.propose_block,
                           "validate_block": self.validate_block,
                           "receive_response": self.receive_response,

@@ -1,11 +1,7 @@
 # imports
-from node import *
-from constants import *
-from nxgraph import Graph
+from Utils.constants import *
+from Utils.nxgraph import Graph
 from scipy.stats import dgamma
-import os
-import json
-import sys
 
 
 class Topology(Graph):

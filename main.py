@@ -1,15 +1,8 @@
 # imports
-from node import *
-from constants import *
+from Utils.constants import *
 #from threading import Thread
-from events import *
-import topology
-from scipy.stats import dgamma
-import os
-import json
-import sys
-import random
-
+from Events.conservation_events import *
+from Utils import topology
 
 events = []
 
@@ -24,7 +17,7 @@ def generate_events(list):
 	sys.exit()"""
 
 	for item in list:
-		new_event = Event_Generate_Block([item[0], item[1]])
+		new_event = EventGenerateBlock([item[0], item[1]])
 		events.append(new_event)
 	return
 
@@ -53,7 +46,7 @@ if __name__ == "__main__":
 
 	#print("Events created = ", events)
 
-	event_msg = Event_Send_Msg([5000, 5494])
+	event_msg = EventSendMsg([5000, 5494])
 	events.append(event_msg)
 
 
